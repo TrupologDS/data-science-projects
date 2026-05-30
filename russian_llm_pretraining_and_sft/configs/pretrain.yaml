@@ -1,0 +1,18 @@
+seed: 42
+tokenizer:
+  vocab_size: 3000
+  special_tokens:
+    - "<unk>"
+    - "<pad>"
+    - "<bos>"
+    - "<eos>"
+data:
+  context_length: 512
+  chunk_target_chars: 1800
+  chunk_min_chars: 300
+training:
+  effective_batch_size: 64
+  precision: bf16_if_available
+artifacts:
+  output_dir: outputs/pretrain
+  cache_dir: hf_cache

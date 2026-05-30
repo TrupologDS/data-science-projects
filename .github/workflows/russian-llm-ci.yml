@@ -1,0 +1,29 @@
+name: Russian LLM experiment checks
+
+on:
+  push:
+    paths:
+      - "russian_llm_pretraining_and_sft/**"
+      - ".github/workflows/russian-llm-ci.yml"
+  pull_request:
+    paths:
+      - "russian_llm_pretraining_and_sft/**"
+      - ".github/workflows/russian-llm-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: russian_llm_pretraining_and_sft
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: python -m ruff check src tests
+      - name: Test
+        run: python -m pytest
